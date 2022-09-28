@@ -53,6 +53,8 @@ namespace XIVLogger
 
         public string RPAidLog = string.Empty;
 
+        public int autoMsgCounter = 0;
+
         [NonSerialized]
         public DalamudPluginInterface pluginInterface;
 
@@ -462,7 +464,7 @@ namespace XIVLogger
 
         }
 
-        private List<string> prepareLog(int aLastN = 0, bool aTimestamp = false, bool aDatestamp = false)
+        private List<string> prepareLog(int aLastN = 0, bool aTimestamp = false, bool aDatestamp = false, bool auto = false)
         {
             ChatConfig activeConfig = config.activeConfig;
 
@@ -589,6 +591,13 @@ namespace XIVLogger
                 result = result.Skip(Math.Max(0, result.Count - aLastN)).ToList();
             }
 
+            // Only return the messages which have been received since the last autosave, and update the counter
+            if (auto)
+            {
+                result = result.Skip(config.autoMsgCounter).ToList();
+                config.autoMsgCounter += result.Count;
+            }
+
             return result;
         }
 
@@ -607,7 +616,7 @@ namespace XIVLogger
             {
                 List<String> printedLog;
 
-                printedLog = prepareLog(aLastN: 0, aTimestamp: config.fTimestamp, aDatestamp: config.fDatestamp);
+                printedLog = prepareLog(aLastN: 0, aTimestamp: config.fTimestamp, aDatestamp: config.fDatestamp, true);
 
                 string folder;
 
