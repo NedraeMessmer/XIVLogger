@@ -287,7 +287,7 @@ namespace XIVLogger
                 nameReplacements.Remove(aName);
                 nameReplacements.Add(aName, bName);
             }
-            
+
         }
 
         public void removeNameReplacement(string aName)
@@ -296,7 +296,7 @@ namespace XIVLogger
             {
                 nameReplacements.Remove(aName);
             }
-            
+
         }
 
         public void changeNameReplacement(string paName, string caName, string cbName)
@@ -308,7 +308,7 @@ namespace XIVLogger
             }
             nameReplacements.Add(caName, cbName);
         }
-        
+
 
     }
 
@@ -343,7 +343,7 @@ namespace XIVLogger
 
         private string getTimeStamp()
         {
-            return DateTime.Now.ToString("dd-MM-yyyy_hh.mm.ss");
+            return DateTime.Now.ToString("yyyy-MM-dd_hh.mm.ss");
         }
 
         public bool checkValidPath(string path)
@@ -669,6 +669,3 @@ namespace XIVLogger
     }
 
 }
-
-
-
